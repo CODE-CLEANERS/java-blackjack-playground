@@ -31,7 +31,7 @@ public abstract class Gamer {
         valance -= thisGameCost;
     }
 
-    public void pickCard(Card card) {
+    public void pickCard(Card card) { // For Test
         cardSum += card.getNumericValue();
         deck.add(card);
     }
@@ -46,6 +46,10 @@ public abstract class Gamer {
             return cardSum + ADDABLE_NUMBER_FOR_ACE;
         }
         return cardSum;
+    }
+
+    public List<Card> getDeck(){
+        return this.deck;
     }
 
     public boolean isSumOverMax() {

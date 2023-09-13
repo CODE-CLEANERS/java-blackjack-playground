@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GamerTest {
+class GamerTest {
     static Cards cards;
     static Gamer gamer;
     static final String NAME = "DK";

@@ -23,7 +23,7 @@ public class Card {
         this.cardShape = cardShape;
         this.cardNumber = cardNumber;
     }
-    @Deprecated
+
     public CardNumber getCardNumber() {
         return this.cardNumber;
     }
