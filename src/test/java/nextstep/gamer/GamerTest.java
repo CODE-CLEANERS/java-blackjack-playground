@@ -4,7 +4,7 @@ import com.sun.tools.javac.util.List;
 import nextstep.card.Card;
 import nextstep.card.CardNumber;
 import nextstep.card.CardShape;
-import nextstep.card.Cards;
+import nextstep.card.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,15 +12,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class GamerTest {
-    static Cards cards;
+    static Deck deck;
     static Gamer gamer;
+    static Dealer dealer;
     static final String NAME = "DK";
     static final Integer VALANCE = 100000;
     static final Integer THIS_GAME_COST = 10000;
     @BeforeEach
     void createGamer() {
+        dealer = new Dealer(NAME);
         gamer = new GameUser(NAME);
-        cards = new Cards();
+        deck = new Deck();
     }
 
     @Test
@@ -37,16 +39,16 @@ class GamerTest {
 
     @Test
     void pickCardTest(){
-        Card card = cards.popCard();
+        Card card = deck.popCard();
         gamer.pickCard(card);
         assertThat(gamer.getCardSum()).isEqualTo(10);
     }
 
     @Test
     void checkSum(){
-        Card card = cards.popCard();
-        Card card1 = cards.popCard();
-        Card card2 = cards.popCard(); // K, Q, J 순서로 뽑힘
+        Card card = deck.popCard();
+        Card card1 = deck.popCard();
+        Card card2 = deck.popCard(); // K, Q, J 순서로 뽑힘
         gamer.pickCard(List.of(card2, card1, card));
         assertThat(gamer.isSumOverMax()).isTrue();
     }
@@ -54,8 +56,8 @@ class GamerTest {
     @Test
     @DisplayName("유저가 ACE를 가지고, 총합이 21이라서 1로 계산된다.")
     void userSum_Equals_21_AND_ACE_IS_1() {
-        Card card = cards.popCard();
-        Card card1 = cards.popCard();
+        Card card = deck.popCard();
+        Card card1 = deck.popCard();
         Card card2 = new Card(CardShape.SPADE, CardNumber.ACE); // == 21
         gamer.pickCard(List.of(card2, card1, card));
         assertThat(gamer.getCardSum()).isEqualTo(21);
@@ -64,7 +66,7 @@ class GamerTest {
     @Test
     @DisplayName("유저가 ACE를 가지고, 총합이 21이라서 11로 계산된다")
     void userSum_Equals_21_AND_ACE_IS_11() {
-        Card card = cards.popCard();
+        Card card = deck.popCard();
         Card card2 = new Card(CardShape.SPADE, CardNumber.ACE); // == 21
         gamer.pickCard(List.of(card2, card));
         assertThat(gamer.getCardSum()).isEqualTo(21);
@@ -73,8 +75,8 @@ class GamerTest {
     @Test
     @DisplayName("유저가 ACE를 가지고, 총합이 25가 넘어서 1로 계산된다")
     void userSum_Above_21_AND_ACE_IS_1() {
-        Card card = cards.popCard();
-        Card card1 = cards.popCard();
+        Card card = deck.popCard();
+        Card card1 = deck.popCard();
         Card card2 = new Card(CardShape.SPADE, CardNumber.ACE);
         Card card3 = new Card(CardShape.SPADE, CardNumber.FIVE); // 이미 총합 25
         gamer.pickCard(List.of(card2, card, card1, card3));

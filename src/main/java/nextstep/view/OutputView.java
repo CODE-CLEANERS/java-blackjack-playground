@@ -31,7 +31,7 @@ public class OutputView {
 
     public void printCardAndNumber(Gamer gamer){
         StringBuilder sb = new StringBuilder();
-        List<Card> deck = gamer.getDeck();
+        List<Card> deck = gamer.getCardsInHand();
         sb.append(gamer).append(": ");
         deck.forEach(card -> {
             CardShape cardShape = card.getCardShape();

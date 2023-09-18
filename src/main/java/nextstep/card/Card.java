@@ -6,19 +6,6 @@ public class Card {
     private final CardShape cardShape;
     private final CardNumber cardNumber;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
-        return cardShape == card.cardShape && cardNumber == card.cardNumber;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cardShape, cardNumber);
-    }
-
     public Card(CardShape cardShape, CardNumber cardNumber) {
         this.cardShape = cardShape;
         this.cardNumber = cardNumber;
@@ -34,5 +21,17 @@ public class Card {
 
     public Integer getNumericValue() {
         return this.cardNumber.getNumericValue();
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return cardShape == card.cardShape && cardNumber == card.cardNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardShape, cardNumber);
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Gamer {
-    private final List<Card> deck;
+    private final List<Card> cardsInHand;
     private final String name;
     private Integer valance = 100000;
     private Integer cardSum = 0;
@@ -16,7 +16,11 @@ public abstract class Gamer {
 
     protected Gamer(String name) {
         this.name = name;
-        this.deck = new ArrayList<>();
+        this.cardsInHand = new ArrayList<>();
+    }
+
+    public List<Card> getCardsInHand(){
+        return this.cardsInHand;
     }
 
     public String getName(){
@@ -31,13 +35,13 @@ public abstract class Gamer {
         valance -= thisGameCost;
     }
 
-    public void pickCard(Card card) { // For Test
+    public void pickCard(Card card) {
         cardSum += card.getNumericValue();
-        deck.add(card);
+        cardsInHand.add(card);
     }
 
-    public void pickCard(List<Card> cards) {
-        deck.addAll(cards);
+    public void pickCard(List<Card> cards) { // For Logic
+        cardsInHand.addAll(cards);
         cardSum += cards.stream().map(Card::getNumericValue).reduce(0, Integer::sum);
     }
 
@@ -48,16 +52,12 @@ public abstract class Gamer {
         return cardSum;
     }
 
-    public List<Card> getDeck(){
-        return this.deck;
-    }
-
     public boolean isSumOverMax() {
         return this.getCardSum() > 21;
     }
 
-    private boolean containsAce(){
-        return this.deck.stream().map(Card::getNumericValue).anyMatch(integer -> integer == CardNumber.ACE.getNumericValue());
+    private boolean containsAce(){ // For Test
+        return this.cardsInHand.stream().map(Card::getNumericValue).anyMatch(integer -> integer == CardNumber.ACE.getNumericValue());
     }
 
     private boolean isAceConvertable(){
