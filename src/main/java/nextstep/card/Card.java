@@ -6,6 +6,22 @@ public class Card {
     private final CardShape cardShape;
     private final CardNumber cardNumber;
 
+    public Card(CardShape cardShape, CardNumber cardNumber) {
+        this.cardShape = cardShape;
+        this.cardNumber = cardNumber;
+    }
+
+    public CardNumber getCardNumber() {
+        return this.cardNumber;
+    }
+
+    public CardShape getCardShape(){
+        return this.cardShape;
+    }
+
+    public Integer getNumericValue() {
+        return this.cardNumber.getNumericValue();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -17,22 +33,5 @@ public class Card {
     @Override
     public int hashCode() {
         return Objects.hash(cardShape, cardNumber);
-    }
-
-    public Card(CardShape cardShape, CardNumber cardNumber) {
-        this.cardShape = cardShape;
-        this.cardNumber = cardNumber;
-    }
-    @Deprecated
-    public CardNumber getCardNumber() {
-        return this.cardNumber;
-    }
-
-    public CardShape getCardShape(){
-        return this.cardShape;
-    }
-
-    public Integer getNumericValue() {
-        return this.cardNumber.getNumericValue();
     }
 }

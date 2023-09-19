@@ -1,8 +1,10 @@
 package nextstep.gamer;
 
 public class Dealer extends Gamer {
+    private static final String DEALER_NAME = "Dealer";
+
     public Dealer(String name) {
-        super(name);
+        super(DEALER_NAME);
     }
     @Override
     public CardSumStatus statusCheck() {

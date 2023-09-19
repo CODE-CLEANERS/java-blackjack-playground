@@ -2,11 +2,11 @@ package nextstep.card;
 
 import java.util.*;
 
-public class Cards {
+public class Deck {
 
     private final Stack<Card> cards;
 
-    public Cards() {
+    public Deck() {
        this.cards = createCardDeck();
     }
 
@@ -23,11 +23,9 @@ public class Cards {
             cards.add(new Card(cardShape, cardNumber));
         }
     }
-
-    public void shuffleCards(){
+    public void shuffleDeck(){
         Collections.shuffle(this.cards);
     }
-
     public Card popCard() {
         return this.cards.pop();
     }
