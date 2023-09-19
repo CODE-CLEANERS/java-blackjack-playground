@@ -3,17 +3,17 @@ package nextstep.gamer;
 import nextstep.card.Card;
 import nextstep.card.CardNumber;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class Gamer {
     private final List<Card> deck;
+
     private final String name;
+
     private Integer valance = 100000;
     private Integer cardSum = 0;
     private static final Integer ADDABLE_NUMBER_FOR_ACE = 10;
     private static final Integer NUMBER_CONSTRAINT = 21;
-
     protected Gamer(String name) {
         this.name = name;
         this.deck = new ArrayList<>();
@@ -25,6 +25,10 @@ public abstract class Gamer {
 
     public Integer getValance() {
         return valance;
+    }
+
+    public List<Card> getDeck() {
+        return deck;
     }
 
     public void offerStake(Integer thisGameCost) {
@@ -49,7 +53,7 @@ public abstract class Gamer {
     }
 
     public boolean isSumOverMax() {
-        return this.getCardSum() > 21;
+        return this.getCardSum() > NUMBER_CONSTRAINT;
     }
 
     private boolean containsAce(){
@@ -62,4 +66,6 @@ public abstract class Gamer {
         }
         return false;
     }
+
+    abstract CardSumStatus statusCheck();
 }

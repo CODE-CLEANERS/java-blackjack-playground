@@ -1,5 +1,6 @@
-package nextstep.fp;
+package nextstep.practice.fp;
 
+import nextstep.practice.fp.Lambda;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

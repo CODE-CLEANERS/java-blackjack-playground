@@ -1,5 +1,7 @@
-package nextstep.fp;
+package nextstep.practice.fp;
 
+import nextstep.practice.fp.Car;
+import nextstep.practice.fp.MoveStrategy;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

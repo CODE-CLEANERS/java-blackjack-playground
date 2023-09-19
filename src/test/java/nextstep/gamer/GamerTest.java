@@ -1,6 +1,6 @@
 package nextstep.gamer;
 
-import com.sun.tools.javac.util.List;
+import java.util.*;
 import nextstep.card.Card;
 import nextstep.card.CardNumber;
 import nextstep.card.CardShape;
@@ -19,7 +19,7 @@ public class GamerTest {
     static final Integer THIS_GAME_COST = 10000;
     @BeforeEach
     void createGamer() {
-        gamer = new GameUser(NAME);
+        gamer = new Player(NAME);
         cards = new Cards();
     }
 

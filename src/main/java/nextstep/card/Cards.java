@@ -23,10 +23,16 @@ public class Cards {
             cards.add(new Card(cardShape, cardNumber));
         }
     }
+
     public void shuffleCards(){
         Collections.shuffle(this.cards);
     }
+
     public Card popCard() {
         return this.cards.pop();
+    }
+
+    public int size(){
+        return this.cards.size();
     }
 }

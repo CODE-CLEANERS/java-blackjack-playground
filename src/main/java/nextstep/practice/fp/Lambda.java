@@ -1,6 +1,5 @@
-package nextstep.fp;
+package nextstep.practice.fp;
 
-import java.util.EnumMap;
 import java.util.List;
 
 public class Lambda {

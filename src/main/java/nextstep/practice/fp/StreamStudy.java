@@ -1,4 +1,4 @@
-package nextstep.fp;
+package nextstep.practice.fp;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
