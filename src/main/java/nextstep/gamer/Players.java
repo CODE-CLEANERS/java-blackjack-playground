@@ -1,6 +1,6 @@
 package nextstep.gamer;
 
-import nextstep.card.Cards;
+import nextstep.card.Deck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Players {
         return players.size();
     }
 
-    public void dealCards(Cards cards) {
+    public void dealCards(Deck cards) {
         this.players.forEach(gamer -> gamer.pickCard(cards.popCard()));
     }
 }

@@ -30,9 +30,6 @@ public abstract class Gamer {
         return valance;
     }
 
-    public List<Card> getCardsInHand() {
-        return cardsInHand;
-    }
 
     public void offerStake(Integer thisGameCost) {
         valance -= thisGameCost;

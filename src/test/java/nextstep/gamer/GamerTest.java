@@ -14,14 +14,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GamerTest {
     static Deck deck;
     static Gamer gamer;
-    static Dealer dealer;
     static final String NAME = "DK";
     static final Integer VALANCE = 100000;
     static final Integer THIS_GAME_COST = 10000;
     @BeforeEach
     void createGamer() {
         gamer = new Player(NAME);
-        cards = new Cards();
+        deck = new Deck();
     }
 
     @Test

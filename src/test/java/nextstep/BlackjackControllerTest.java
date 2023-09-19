@@ -1,6 +1,6 @@
 package nextstep;
 
-import nextstep.card.Cards;
+import nextstep.card.Deck;
 import nextstep.gamer.Gamer;
 import nextstep.gamer.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,11 +18,11 @@ class BlackjackControllerTest {
      * 1. 카드를 만들고 섞는다.
      * 2. 플레이어에게 나눠준다 (딜러 포함) -> 2장씩
      */
-    private Cards cards;
+    private Deck cards;
     private BlackjackController controller;
     @BeforeEach
     void init(){
-        cards = new Cards();
+        cards = new Deck();
         controller = new BlackjackController(cards);
         Gamer gamer = new Player("DK");
         Gamer gamer2 = new Player("DK2");
