@@ -3,9 +3,10 @@ package nextstep.view;
 import nextstep.card.Card;
 import nextstep.card.CardNumber;
 import nextstep.card.CardShape;
-import nextstep.gamer.Gamer;
+import nextstep.gamer.GameUser;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class OutputView {
     public void printGetPlayersName(){
@@ -25,14 +26,14 @@ public class OutputView {
         System.out.println("딜러와" + sb.toString() + "딜러와 pobi, jason에게 2장의 나누었습니다.");
     }
 
-    public void printCardNumbersByPlayerNames(List<Gamer> players) {
+    public void printCardNumbersByPlayerNames(List<GameUser> players) {
         players.forEach(this::printCardAndNumber);
     }
 
-    public void printCardAndNumber(Gamer gamer){
+    public void printCardAndNumber(GameUser gameUser){
         StringBuilder sb = new StringBuilder();
-        List<Card> deck = gamer.getCardsInHand();
-        sb.append(gamer).append(": ");
+        List<Card> deck = gameUser.getCardsInHand();
+        sb.append(gameUser).append(": ");
         deck.forEach(card -> {
             CardShape cardShape = card.getCardShape();
             CardNumber cardNumber = card.getCardNumber();

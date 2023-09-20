@@ -1,6 +1,7 @@
 package nextstep.gamer;
 
 import java.util.*;
+
 import nextstep.card.Card;
 import nextstep.card.CardNumber;
 import nextstep.card.CardShape;
@@ -11,35 +12,35 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class GamerTest {
+class GameUserTest {
     static Deck deck;
-    static Gamer gamer;
+    static GameUser gameUser;
     static final String NAME = "DK";
     static final Integer VALANCE = 100000;
     static final Integer THIS_GAME_COST = 10000;
     @BeforeEach
     void createGamer() {
-        gamer = new Player(NAME);
+        gameUser = new Player(NAME);
         deck = new Deck();
     }
 
     @Test
     void getName() {
-        assertThat(gamer.getName()).isEqualTo(NAME);
+        assertThat(gameUser.getName()).isEqualTo(NAME);
     }
 
     @Test
     void valanceTest(){
-        assertThat(gamer.getValance()).isEqualTo(VALANCE);
-        gamer.offerStake(THIS_GAME_COST);
-        assertThat(gamer.getValance()).isEqualTo(VALANCE - THIS_GAME_COST);
+        assertThat(gameUser.getValance()).isEqualTo(VALANCE);
+        gameUser.offerStake(THIS_GAME_COST);
+        assertThat(gameUser.getValance()).isEqualTo(VALANCE - THIS_GAME_COST);
     }
 
     @Test
     void pickCardTest(){
         Card card = deck.popCard();
-        gamer.pickCard(card);
-        assertThat(gamer.getCardSum()).isEqualTo(10);
+        gameUser.pickCard(card);
+        assertThat(gameUser.getCardSum()).isEqualTo(10);
     }
 
     @Test
@@ -47,8 +48,8 @@ class GamerTest {
         Card card = deck.popCard();
         Card card1 = deck.popCard();
         Card card2 = deck.popCard(); // K, Q, J 순서로 뽑힘
-        gamer.pickCard(List.of(card2, card1, card));
-        assertThat(gamer.isSumOverMax()).isTrue();
+        gameUser.pickCard(List.of(card2, card1, card));
+        assertThat(gameUser.isSumOverMax()).isTrue();
     }
 
     @Test
@@ -57,8 +58,8 @@ class GamerTest {
         Card card = deck.popCard();
         Card card1 = deck.popCard();
         Card card2 = new Card(CardShape.SPADE, CardNumber.ACE); // == 21
-        gamer.pickCard(List.of(card2, card1, card));
-        assertThat(gamer.getCardSum()).isEqualTo(21);
+        gameUser.pickCard(List.of(card2, card1, card));
+        assertThat(gameUser.getCardSum()).isEqualTo(21);
     }
 
     @Test
@@ -66,8 +67,8 @@ class GamerTest {
     void userSum_Equals_21_AND_ACE_IS_11() {
         Card card = deck.popCard();
         Card card2 = new Card(CardShape.SPADE, CardNumber.ACE); // == 21
-        gamer.pickCard(List.of(card2, card));
-        assertThat(gamer.getCardSum()).isEqualTo(21);
+        gameUser.pickCard(List.of(card2, card));
+        assertThat(gameUser.getCardSum()).isEqualTo(21);
     }
 
     @Test
@@ -77,8 +78,8 @@ class GamerTest {
         Card card1 = deck.popCard();
         Card card2 = new Card(CardShape.SPADE, CardNumber.ACE);
         Card card3 = new Card(CardShape.SPADE, CardNumber.FIVE); // 이미 총합 25
-        gamer.pickCard(List.of(card2, card, card1, card3));
-        assertThat(gamer.getCardSum()).isEqualTo(26);
+        gameUser.pickCard(List.of(card2, card, card1, card3));
+        assertThat(gameUser.getCardSum()).isEqualTo(26);
     }
 
     @Test
@@ -87,8 +88,8 @@ class GamerTest {
         Card card = new Card(CardShape.SPADE, CardNumber.SIX);
         Card card3 = new Card(CardShape.SPADE, CardNumber.FIVE); // 이미 11, ACE가 11 이라면 초과해버림 (21을)
         Card card2 = new Card(CardShape.SPADE, CardNumber.ACE);
-        gamer.pickCard(List.of(card2, card, card3));
-        assertThat(gamer.getCardSum()).isEqualTo(12);
+        gameUser.pickCard(List.of(card2, card, card3));
+        assertThat(gameUser.getCardSum()).isEqualTo(12);
     }
 
     @Test
@@ -97,8 +98,8 @@ class GamerTest {
         Card card = new Card(CardShape.SPADE, CardNumber.ACE);
         Card card3 = new Card(CardShape.SPADE, CardNumber.ACE); // 이미 11, ACE가 11 이라면 초과해버림 (21을)
         Card card2 = new Card(CardShape.SPADE, CardNumber.ACE);
-        gamer.pickCard(List.of(card2, card, card3));
-        assertThat(gamer.getCardSum()).isEqualTo(13);
+        gameUser.pickCard(List.of(card2, card, card3));
+        assertThat(gameUser.getCardSum()).isEqualTo(13);
     }
 
     @Test
@@ -107,7 +108,8 @@ class GamerTest {
         Card card = new Card(CardShape.SPADE, CardNumber.EIGHT);
         Card card3 = new Card(CardShape.SPADE, CardNumber.ACE); // 이미 11, ACE가 11 이라면 초과해버림 (21을)
         Card card2 = new Card(CardShape.SPADE, CardNumber.ACE);
-        gamer.pickCard(List.of(card2, card, card3));
-        assertThat(gamer.getCardSum()).isEqualTo(20);
+        gameUser.pickCard(List.of(card2, card, card3));
+        assertThat(gameUser.getCardSum()).isEqualTo(20);
     }
+
 }

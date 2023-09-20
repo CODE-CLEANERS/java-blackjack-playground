@@ -5,7 +5,7 @@ import nextstep.card.CardNumber;
 
 import java.util.*;
 
-public abstract class Gamer {
+public abstract class GameUser {
     private final List<Card> cardsInHand;
     private final String name;
     private Integer valance = 100000;
@@ -13,7 +13,7 @@ public abstract class Gamer {
     private static final Integer ADDABLE_NUMBER_FOR_ACE = 10;
     private static final Integer NUMBER_CONSTRAINT = 21;
 
-    protected Gamer(String name) {
+    protected GameUser(String name) {
         this.name = name;
         this.cardsInHand = new ArrayList<>();
     }
@@ -29,8 +29,6 @@ public abstract class Gamer {
     public Integer getValance() {
         return valance;
     }
-
-
     public void offerStake(Integer thisGameCost) {
         valance -= thisGameCost;
     }

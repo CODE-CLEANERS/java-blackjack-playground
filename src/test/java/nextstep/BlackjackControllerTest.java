@@ -1,18 +1,20 @@
 package nextstep;
 
 import nextstep.card.Deck;
-import nextstep.gamer.Gamer;
+import nextstep.gamer.Dealer;
+import nextstep.gamer.GameUser;
 import nextstep.gamer.Player;
+import nextstep.gamer.Players;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class BlackjackControllerTest {
-    // 컨트롤러가 해야 할 일
 
     /**
      * 1. 카드를 만들고 섞는다.
@@ -23,10 +25,11 @@ class BlackjackControllerTest {
     @BeforeEach
     void init(){
         cards = new Deck();
-        controller = new BlackjackController(cards);
-        Gamer gamer = new Player("DK");
-        Gamer gamer2 = new Player("DK2");
-        controller.enrollPlayer(Arrays.asList(gamer2, gamer));
+        GameUser gameUser = new Player("DK");
+        GameUser gameUser2 = new Player("DK2");
+        Dealer dealer = new Dealer();
+        Players players = new Players(Arrays.asList(gameUser, gameUser2, dealer));
+        controller = new BlackjackController(cards, players);
     }
     @Test
     void generateCardTest() {
@@ -39,12 +42,12 @@ class BlackjackControllerTest {
 
     @Test
     @DisplayName("플레이어 등록")
+    @Deprecated
     void enroll_player() {
-        Gamer gamer = new Player("DK");
-        Gamer gamer2 = new Player("DK2");
-        controller.enrollPlayer(Arrays.asList(gamer2, gamer));
-
-        assertThat(controller.totalPlayerSize()).isEqualTo(5);
+        GameUser gameUser = new Player("DK");
+        GameUser gameUser2 = new Player("DK2");
+        // 불변 컬렉션(일급 컬렉션) 으로 변경
+        assertThat(controller.totalPlayerSize()).isEqualTo(3);
     }
 
     @Test
@@ -55,9 +58,10 @@ class BlackjackControllerTest {
     }
 
     @Test
-    @DisplayName("패 돌려")
+    @DisplayName("유저마다 패 보여주는 로직")
     void player_sum(){
         controller.dealCards();
+
         assertThat(cards.size()).isEqualTo(45);
     }
 }

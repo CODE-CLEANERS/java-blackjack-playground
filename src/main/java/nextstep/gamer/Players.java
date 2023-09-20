@@ -1,27 +1,38 @@
 package nextstep.gamer;
 
+import nextstep.card.Card;
 import nextstep.card.Deck;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Players {
-    private final List<Gamer> players;
+    private final List<GameUser> users;
 
-    public Players() {
-        this.players = new ArrayList<>();
-        this.players.add(new Dealer("Dealer")); // 딜러는 무적권 존재
-    }
-
-    public void addAll(List<Gamer> gamers) {
-        this.players.addAll(gamers);
+    public Players(List<GameUser> users) {
+        this.users = users;
     }
 
     public int size() {
-        return players.size();
+        return users.size();
     }
 
     public void dealCards(Deck cards) {
-        this.players.forEach(gamer -> gamer.pickCard(cards.popCard()));
+        this.users.forEach(gamer -> gamer.pickCard(cards.popCard()));
+    }
+
+    public List<String> getPlayersNames(){
+        return this.users.stream().map(GameUser::getName).collect(Collectors.toList());
+    }
+
+    public GameUser findUserByUsername(String username){
+        return users.stream().filter(user -> user.getName().equals(username)).findAny().orElseThrow(
+                () -> new IllegalArgumentException("해당하는 유저가 없다.")
+        );
+    }
+
+    public List<Card> getCardsInHandByUsername(String username){
+        GameUser user = this.findUserByUsername(username);
+        return user.getCardsInHand();
     }
 }

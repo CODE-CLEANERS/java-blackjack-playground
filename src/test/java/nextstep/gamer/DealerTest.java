@@ -11,7 +11,7 @@ class DealerTest {
     static Dealer dealer;
     @BeforeEach
     void initDealer(){
-        dealer = new Dealer("DK");
+        dealer = new Dealer();
     }
 
     @Test

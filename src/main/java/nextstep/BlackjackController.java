@@ -2,18 +2,15 @@ package nextstep;
 
 import nextstep.card.Card;
 import nextstep.card.Deck;
-import nextstep.gamer.Gamer;
 import nextstep.gamer.Players;
-
-import java.util.List;
 
 public class BlackjackController {
     private final Deck deck;
     private final Players players;
 
-    public BlackjackController(Deck deck) {
+    public BlackjackController(Deck deck, Players players) {
         this.deck = deck;
-        this.players = new Players();
+        this.players = players;
     }
 
     public void createDeck() {
@@ -23,10 +20,6 @@ public class BlackjackController {
 
     public Card popCard(){
         return this.deck.popCard();
-    }
-
-    public void enrollPlayer(List<Gamer> gamers) {
-        this.players.addAll(gamers);
     }
 
     public int totalPlayerSize(){

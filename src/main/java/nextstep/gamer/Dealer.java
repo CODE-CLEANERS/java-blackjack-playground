@@ -1,9 +1,9 @@
 package nextstep.gamer;
 
-public class Dealer extends Gamer {
+public class Dealer extends GameUser {
     private static final String DEALER_NAME = "Dealer";
 
-    public Dealer(String name) {
+    public Dealer() {
         super(DEALER_NAME);
     }
     @Override
