@@ -33,7 +33,6 @@ class BlackjackControllerTest {
     }
     @Test
     void generateCardTest() {
-        controller.createDeck();
         controller.popCard();
         assertThat(cards.size()).isEqualTo(47);
         controller.popCard();
@@ -53,15 +52,16 @@ class BlackjackControllerTest {
     @Test
     @DisplayName("패 돌려")
     void distribute_card(){
-        controller.dealCards();
+        controller.dealCards(1);
         assertThat(cards.size()).isEqualTo(45);
     }
 
     @Test
-    @DisplayName("유저마다 패 보여주는 로직")
+    @Deprecated
+    @DisplayName("유저마다 패 보여주는 로직 - 출력으로만 제어할듯")
     void player_sum(){
-        controller.dealCards();
-
-        assertThat(cards.size()).isEqualTo(45);
+        // 유저들에게이미 카드가 돌아가 있는 상황, 따라서 유저들은 뭔 카드를 가지고 있는지만 보여주면 됨.
+        controller.dealCards(1);
+        // 유저의 이름과, 가지고 있는 패를 단순히 찍어주기만 (sout) 하면 됨...
     }
 }

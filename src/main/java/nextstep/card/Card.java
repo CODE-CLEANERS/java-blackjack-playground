@@ -22,6 +22,10 @@ public class Card {
     public Integer getNumericValue() {
         return this.cardNumber.getNumericValue();
     }
+
+    public String getCardValueForPrint(){
+        return cardNumber.getNumericValue() + cardShape.toString();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

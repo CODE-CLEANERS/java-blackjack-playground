@@ -26,7 +26,7 @@ public class Players {
     }
 
     public GameUser findUserByUsername(String username){
-        return users.stream().filter(user -> user.getName().equals(username)).findAny().orElseThrow(
+        return this.users.stream().filter(user -> user.getName().equals(username)).findAny().orElseThrow(
                 () -> new IllegalArgumentException("해당하는 유저가 없다.")
         );
     }

@@ -10,12 +10,8 @@ public class BlackjackController {
 
     public BlackjackController(Deck deck, Players players) {
         this.deck = deck;
-        this.players = players;
-    }
-
-    public void createDeck() {
-        this.deck.createCardDeck();
         this.deck.shuffleDeck();
+        this.players = players;
     }
 
     public Card popCard(){
@@ -26,7 +22,10 @@ public class BlackjackController {
         return this.players.size();
     }
 
-    public void dealCards() {
-        this.players.dealCards(this.deck);
+    public void dealCards(int trial) {
+        for (int i = 0; i < trial; i++) {
+            this.players.dealCards(this.deck);
+        }
     }
+
 }
