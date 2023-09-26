@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CardTest {
+class CardTest {
     static Card card;
     static Card card2;
     @BeforeEach

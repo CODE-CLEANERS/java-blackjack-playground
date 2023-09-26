@@ -35,4 +35,8 @@ public class Players {
         GameUser user = this.findUserByUsername(username);
         return user.getCardsInHand();
     }
+
+    public List<String> getAddablePlayersNames(){
+        return this.users.stream().filter(user -> user.statusCheck().equals(CardSumStatus.UNDER) || user.statusCheck().equals(CardSumStatus.DEALER_MUST_PICK)).map(GameUser::getName).collect(Collectors.toList());
+    }
 }

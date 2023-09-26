@@ -5,12 +5,13 @@ import nextstep.gamer.Dealer;
 import nextstep.gamer.GameUser;
 import nextstep.gamer.Player;
 import nextstep.gamer.Players;
+import nextstep.view.InputView;
+import nextstep.view.OutputView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -29,14 +30,9 @@ class BlackjackControllerTest {
         GameUser gameUser2 = new Player("DK2");
         Dealer dealer = new Dealer();
         Players players = new Players(Arrays.asList(gameUser, gameUser2, dealer));
-        controller = new BlackjackController(cards, players);
-    }
-    @Test
-    void generateCardTest() {
-        controller.popCard();
-        assertThat(cards.size()).isEqualTo(47);
-        controller.popCard();
-        assertThat(cards.size()).isEqualTo(46);
+        InputView inputView = new InputView();
+        OutputView outputView = new OutputView();
+        controller = new BlackjackController(cards, players, inputView, outputView);
     }
 
     @Test

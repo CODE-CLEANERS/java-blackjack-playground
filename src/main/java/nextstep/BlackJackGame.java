@@ -29,7 +29,7 @@ public class BlackJackGame {
         String[] names = input.split(",");
 
         Players players = initPlayers(names);
-        controller = new BlackjackController(new Deck(), players);
+        controller = new BlackjackController(new Deck(), players, inputView, outputView);
 
         controller.dealCards(2);
         outputView.printCardsOfUsers(players);
