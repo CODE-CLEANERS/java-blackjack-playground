@@ -22,19 +22,6 @@ public class PlayerTest {
     }
 
     @Test
-    void 배팅() {
-        // given
-        Player player = new Player("tester");
-        int batAmount = 10000;
-
-        // when
-        player.bat(batAmount);
-
-        // then
-        assertThat(player.getChip()).isEqualTo(90000);
-    }
-
-    @Test
     void 손_패_추가() {
         // given
         Player player = new Player("tester");
