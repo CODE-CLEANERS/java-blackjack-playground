@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private final String name;
-    private final List<Card> hands;
-    private int chip;
+    protected final String name;
+    protected final List<Card> hands;
+    protected double chip;
 
     public Player(String name) {
         this.name = name;
-        this.chip = 100000;
         this.hands = new ArrayList<>();
     }
 
@@ -23,16 +22,8 @@ public class Player {
     }
 
 
-    public int getChip() {
+    public double getChip() {
         return chip;
-    }
-
-    public void bat(int batAmount) {
-        if (chip - batAmount < 0) {
-            throw new IllegalArgumentException("배팅 금액이 너무 큽니다.");
-        }
-
-        chip -= batAmount;
     }
 
     public void addHand(Card card) {
@@ -70,7 +61,15 @@ public class Player {
     }
 
     public boolean isBlackJack() {
+        if (hands.size() != 2) {
+            return false;
+        }
+
         int result = calculateHands();
         return result == 21;
+    }
+
+    public void addChip(double chip) {
+        this.chip += chip;
     }
 }

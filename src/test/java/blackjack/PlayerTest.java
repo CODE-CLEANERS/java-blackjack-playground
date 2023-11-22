@@ -94,8 +94,7 @@ public class PlayerTest {
         // given
         Player player = new Player("tester");
         player.addHand(Card.CLOVER_KING);
-        player.addHand(Card.HEART_7);
-        player.addHand(Card.DIAMOND_4);
+        player.addHand(Card.DIAMOND_ACE);
 
         // when
         int result = player.calculateHands();
@@ -106,7 +105,7 @@ public class PlayerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"CLOVER_KING,HEART_7,DIAMOND_5", "CLOVER_KING,HEART_7"})
+    @ValueSource(strings = {"CLOVER_KING,HEART_7,DIAMOND_5", "CLOVER_KING,HEART_7", "CLOVER_KING,HEART_KING,CLOVER_ACE"})
     void 블랙잭_아님(String input) {
         // given
         Player player = new Player("tester");

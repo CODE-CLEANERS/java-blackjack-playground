@@ -14,7 +14,7 @@ public class Deck {
 
     private List<Card> getShuffledDeck() {
         Random random = new Random();
-        List<Card> noShuffled = Arrays.asList(Card.values());
+        List<Card> noShuffled = new ArrayList<>(Arrays.asList(Card.values()));
         List<Card> shuffled = new ArrayList<>();
         for (int i = noShuffled.size(); i > 0; i--) {
             int pick = random.nextInt(noShuffled.size());
