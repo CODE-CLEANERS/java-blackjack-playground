@@ -1,7 +1,7 @@
 package blackjack;
 
 public enum Card {
-    CLOVER_ACE(10),
+    CLOVER_ACE(11),
     CLOVER_1(1),
     CLOVER_2(2),
     CLOVER_3(3),
@@ -14,7 +14,7 @@ public enum Card {
     CLOVER_JACK(10),
     CLOVER_QUEEN(10),
     CLOVER_KING(10),
-    DIAMOND_ACE(10),
+    DIAMOND_ACE(11),
     DIAMOND_1(1),
     DIAMOND_2(2),
     DIAMOND_3(3),
@@ -27,7 +27,7 @@ public enum Card {
     DIAMOND_JACK(10),
     DIAMOND_QUEEN(10),
     DIAMOND_KING(10),
-    HEART_ACE(10),
+    HEART_ACE(11),
     HEART_1(1),
     HEART_2(2),
     HEART_3(3),
@@ -40,7 +40,7 @@ public enum Card {
     HEART_JACK(10),
     HEART_QUEEN(10),
     HEART_KING(10),
-    SPADE_ACE(10),
+    SPADE_ACE(11),
     SPADE_1(1),
     SPADE_2(2),
     SPADE_3(3),

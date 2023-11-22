@@ -10,6 +10,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PlayerTest {
 
     @Test
+    void 생성() {
+        // given
+        Player player = new Player("pobi");
+
+        // when
+        String name = player.getName();
+
+        // then
+        assertThat(name).isEqualTo("pobi");
+    }
+
+    @Test
     void 배팅() {
         // given
         Player player = new Player("tester");
@@ -19,11 +31,11 @@ public class PlayerTest {
         player.bat(batAmount);
 
         // then
-        assertThat(player.getBatAmount()).isEqualTo(batAmount);
+        assertThat(player.getChip()).isEqualTo(90000);
     }
 
     @Test
-    void 딜링() {
+    void 손_패_추가() {
         // given
         Player player = new Player("tester");
 
@@ -35,21 +47,6 @@ public class PlayerTest {
         assertThat(player.getHands()).contains(Card.CLOVER_ACE);
     }
 
-    @Test
-    void 히트() {
-        // given
-        Player player = new Player("tester");
-        player.addHand(Card.CLOVER_KING);
-        player.addHand(Card.HEART_KING);
-
-        // when
-        player.hit(Card.SPADE_KING);
-
-        // then
-        assertThat(player.getHands().size()).isEqualTo(3);
-        assertThat(player.getHands()).contains(Card.CLOVER_KING, Card.HEART_KING, Card.SPADE_KING);
-    }
-
     @ParameterizedTest
     @CsvSource(value = {"CLOVER_KING,HEART_KING,DIAMOND_2:22", "CLOVER_KING,HEART_KING:20"}, delimiter = ':')
     void 정산(String input, int expect) {
@@ -58,7 +55,7 @@ public class PlayerTest {
         addHandFromInput(input, player);
 
         // when
-        int result = player.calculate();
+        int result = player.calculateHands();
 
         // then
         assertThat(result).isEqualTo(expect);
@@ -72,7 +69,7 @@ public class PlayerTest {
         addHandFromInput(input, player);
 
         // when
-        int result = player.calculate();
+        int result = player.calculateHands();
 
         // then
         assertThat(result).isEqualTo(21);
@@ -101,7 +98,7 @@ public class PlayerTest {
         player.addHand(Card.DIAMOND_4);
 
         // when
-        int result = player.calculate();
+        int result = player.calculateHands();
 
         // then
         assertThat(result).isEqualTo(21);
