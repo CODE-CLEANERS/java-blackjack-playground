@@ -1,5 +1,8 @@
 package blackjack;
 
+import blackjack.card.Card;
+import blackjack.card.Rank;
+import blackjack.card.Suit;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +25,7 @@ public class DealerTest {
     void 플레이_16이하() {
         // given
         Dealer dealer = new Dealer();
-        dealer.addHand(Card.HEART_KING);
+        dealer.addHand(new Card(Rank.KING, Suit.HEART));
 
         // when
         boolean isPlay = dealer.isPlay();
@@ -35,8 +38,8 @@ public class DealerTest {
     void 플레이_17이상() {
         // given
         Dealer dealer = new Dealer();
-        dealer.addHand(Card.HEART_KING);
-        dealer.addHand(Card.HEART_7);
+        dealer.addHand(new Card(Rank.KING, Suit.HEART));
+        dealer.addHand(new Card(Rank.SEVEN, Suit.HEART));
 
         // when
         boolean isPlay = dealer.isPlay();

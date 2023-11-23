@@ -1,13 +1,13 @@
-import blackjack.Game;
+import blackjack.GameHandler;
 
 public class Application {
     public static void main(String[] args) {
-        Game game = new Game();
-        game.addPlayer();
-        game.proceedBattingStep();
-        game.deal();
-        game.proceedPlayerPlay();
-        game.proceedDealerPlay();
-        game.calculateResult();
+        GameHandler gameHandler = new GameHandler();
+        gameHandler.handleAddPlayer();
+        gameHandler.handleBatting();
+        gameHandler.handleDeal();
+        gameHandler.handlePlayerPlay();
+        gameHandler.proceedDealerPlay();
+        gameHandler.handleCalculateStep();
     }
 }

@@ -1,5 +1,7 @@
 package blackjack;
 
+import blackjack.card.Card;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class Player {
     protected final String name;
     protected final List<Card> hands;
     protected double chip;
+    private int batAmount;
 
     public Player(String name) {
         this.name = name;
@@ -21,9 +24,12 @@ public class Player {
         return this.hands;
     }
 
-
     public double getChip() {
         return chip;
+    }
+
+    public void setBatAmount(int batAmount) {
+        this.batAmount = batAmount;
     }
 
     public void addHand(Card card) {
@@ -41,23 +47,20 @@ public class Player {
 
     private int addNumber(Card hand, int sum) {
         int number = hand.getNumber();
-        if (isAce(hand) && sum + number > 21) {
+        if (hand.isAce() && sum + number > 21) {
             return sum + 1;
         }
 
         return sum + number;
     }
 
-    private boolean isAce(Card card) {
-        return card == Card.CLOVER_ACE
-                || card == Card.HEART_ACE
-                || card == Card.DIAMOND_ACE
-                || card == Card.SPADE_ACE;
-    }
-
     public boolean isBust() {
         int result = calculateHands();
         return result > 21;
+    }
+
+    public boolean isNotBust() {
+        return !isBust();
     }
 
     public boolean isBlackJack() {
@@ -69,7 +72,15 @@ public class Player {
         return result == 21;
     }
 
-    public void addChip(double chip) {
-        this.chip += chip;
+    public void gain() {
+        this.chip += batAmount;
+    }
+
+    public void gainWithBlackJack() {
+        this.chip += batAmount * 1.5;
+    }
+
+    public void loss() {
+        this.chip -= batAmount;
     }
 }

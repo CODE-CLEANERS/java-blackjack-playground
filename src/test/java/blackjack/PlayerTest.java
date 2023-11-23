@@ -1,5 +1,8 @@
 package blackjack;
 
+import blackjack.card.Card;
+import blackjack.card.Rank;
+import blackjack.card.Suit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -27,15 +30,15 @@ public class PlayerTest {
         Player player = new Player("tester");
 
         // when
-        player.addHand(Card.CLOVER_ACE);
+        player.addHand(new Card(Rank.ACE, Suit.CLUB));
 
         // then
         assertThat(player.getHands().size()).isOne();
-        assertThat(player.getHands()).contains(Card.CLOVER_ACE);
+        assertThat(player.getHands()).contains(new Card(Rank.ACE, Suit.CLUB));
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"CLOVER_KING,HEART_KING,DIAMOND_2:22", "CLOVER_KING,HEART_KING:20"}, delimiter = ':')
+    @CsvSource(value = {"CLUB_KING,HEART_KING,DIAMOND_TWO:22", "CLUB_KING,HEART_KING:20"}, delimiter = ':')
     void 정산(String input, int expect) {
         // given
         Player player = new Player("tester");
@@ -49,7 +52,7 @@ public class PlayerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"CLOVER_KING,HEART_KING,DIAMOND_ACE", "CLOVER_KING,DIAMOND_ACE"})
+    @ValueSource(strings = {"CLUB_KING,HEART_KING,DIAMOND_ACE", "CLUB_KING,DIAMOND_ACE"})
     void 정산_에이스(String input) {
         // given
         Player player = new Player("tester");
@@ -63,7 +66,7 @@ public class PlayerTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"CLOVER_KING,HEART_KING,DIAMOND_2:true", "CLOVER_KING,HEART_KING:false"}, delimiter = ':')
+    @CsvSource(value = {"CLUB_KING,HEART_KING,DIAMOND_TWO:true", "CLUB_KING,HEART_KING:false"}, delimiter = ':')
     void 버스트_여부(String input, boolean expect) {
         // given
         Player player = new Player("tester");
@@ -80,8 +83,8 @@ public class PlayerTest {
     void 블랙잭() {
         // given
         Player player = new Player("tester");
-        player.addHand(Card.CLOVER_KING);
-        player.addHand(Card.DIAMOND_ACE);
+        player.addHand(new Card(Rank.KING, Suit.CLUB));
+        player.addHand(new Card(Rank.ACE, Suit.DIAMOND));
 
         // when
         int result = player.calculateHands();
@@ -92,7 +95,7 @@ public class PlayerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"CLOVER_KING,HEART_7,DIAMOND_5", "CLOVER_KING,HEART_7", "CLOVER_KING,HEART_KING,CLOVER_ACE"})
+    @ValueSource(strings = {"CLUB_KING,HEART_SEVEN,DIAMOND_FIVE", "CLUB_KING,HEART_SEVEN", "CLUB_KING,HEART_KING,CLUB_ACE"})
     void 블랙잭_아님(String input) {
         // given
         Player player = new Player("tester");
@@ -106,9 +109,11 @@ public class PlayerTest {
     }
 
     private static void addHandFromInput(String input, Player player) {
-        String[] cards = input.split(",");
-        for (String card : cards) {
-            player.addHand(Card.valueOf(card));
+        String[] cardNames = input.split(",");
+        for (String cardName : cardNames) {
+            String[] suitAndRank = cardName.split("_");
+            Card card = new Card(Rank.valueOf(suitAndRank[1]), Suit.valueOf(suitAndRank[0]));
+            player.addHand(card);
         }
     }
 }

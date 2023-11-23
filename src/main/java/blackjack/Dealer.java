@@ -11,4 +11,8 @@ public class Dealer extends Player {
         int result = calculateHands();
         return result <= 16;
     }
+
+    public void addChip(double chip) {
+        this.chip -= chip;
+    }
 }
