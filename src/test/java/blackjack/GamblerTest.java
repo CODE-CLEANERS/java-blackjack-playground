@@ -3,6 +3,7 @@ package blackjack;
 import blackjack.card.Card;
 import blackjack.card.Rank;
 import blackjack.card.Suit;
+import blackjack.player.Gambler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -10,15 +11,15 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PlayerTest {
+public class GamblerTest {
 
     @Test
     void 생성() {
         // given
-        Player player = new Player("pobi");
+        Gambler gambler = new Gambler("pobi");
 
         // when
-        String name = player.getName();
+        String name = gambler.getName();
 
         // then
         assertThat(name).isEqualTo("pobi");
@@ -27,25 +28,25 @@ public class PlayerTest {
     @Test
     void 손_패_추가() {
         // given
-        Player player = new Player("tester");
+        Gambler gambler = new Gambler("tester");
 
         // when
-        player.addHand(new Card(Rank.ACE, Suit.CLUB));
+        gambler.addCardToHand(new Card(Rank.ACE, Suit.CLUB));
 
         // then
-        assertThat(player.getHands().size()).isOne();
-        assertThat(player.getHands()).contains(new Card(Rank.ACE, Suit.CLUB));
+        assertThat(gambler.getHand().size()).isOne();
+        assertThat(gambler.getHand().get(0)).isEqualTo(new Card(Rank.ACE, Suit.CLUB));
     }
 
     @ParameterizedTest
     @CsvSource(value = {"CLUB_KING,HEART_KING,DIAMOND_TWO:22", "CLUB_KING,HEART_KING:20"}, delimiter = ':')
     void 정산(String input, int expect) {
         // given
-        Player player = new Player("tester");
-        addHandFromInput(input, player);
+        Gambler gambler = new Gambler("tester");
+        addHandFromInput(input, gambler);
 
         // when
-        int result = player.calculateHands();
+        int result = gambler.getHand().calculateHand();
 
         // then
         assertThat(result).isEqualTo(expect);
@@ -55,11 +56,11 @@ public class PlayerTest {
     @ValueSource(strings = {"CLUB_KING,HEART_KING,DIAMOND_ACE", "CLUB_KING,DIAMOND_ACE"})
     void 정산_에이스(String input) {
         // given
-        Player player = new Player("tester");
-        addHandFromInput(input, player);
+        Gambler gambler = new Gambler("tester");
+        addHandFromInput(input, gambler);
 
         // when
-        int result = player.calculateHands();
+        int result = gambler.getHand().calculateHand();
 
         // then
         assertThat(result).isEqualTo(21);
@@ -69,11 +70,11 @@ public class PlayerTest {
     @CsvSource(value = {"CLUB_KING,HEART_KING,DIAMOND_TWO:true", "CLUB_KING,HEART_KING:false"}, delimiter = ':')
     void 버스트_여부(String input, boolean expect) {
         // given
-        Player player = new Player("tester");
-        addHandFromInput(input, player);
+        Gambler gambler = new Gambler("tester");
+        addHandFromInput(input, gambler);
 
         // when
-        boolean isBust = player.isBust();
+        boolean isBust = gambler.getHand().isBust();
 
         // then
         assertThat(isBust).isEqualTo(expect);
@@ -82,38 +83,38 @@ public class PlayerTest {
     @Test
     void 블랙잭() {
         // given
-        Player player = new Player("tester");
-        player.addHand(new Card(Rank.KING, Suit.CLUB));
-        player.addHand(new Card(Rank.ACE, Suit.DIAMOND));
+        Gambler gambler = new Gambler("tester");
+        gambler.addCardToHand(new Card(Rank.KING, Suit.CLUB));
+        gambler.addCardToHand(new Card(Rank.ACE, Suit.DIAMOND));
 
         // when
-        int result = player.calculateHands();
+        int result = gambler.getHand().calculateHand();
 
         // then
         assertThat(result).isEqualTo(21);
-        assertThat(player.isBlackJack()).isTrue();
+        assertThat(gambler.getHand().isBlackJack()).isTrue();
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"CLUB_KING,HEART_SEVEN,DIAMOND_FIVE", "CLUB_KING,HEART_SEVEN", "CLUB_KING,HEART_KING,CLUB_ACE"})
     void 블랙잭_아님(String input) {
         // given
-        Player player = new Player("tester");
-        addHandFromInput(input, player);
+        Gambler gambler = new Gambler("tester");
+        addHandFromInput(input, gambler);
 
         // when
-        boolean isBlackJack = player.isBlackJack();
+        boolean isBlackJack = gambler.getHand().isBlackJack();
 
         // then
         assertThat(isBlackJack).isFalse();
     }
 
-    private static void addHandFromInput(String input, Player player) {
+    private static void addHandFromInput(String input, Gambler gambler) {
         String[] cardNames = input.split(",");
         for (String cardName : cardNames) {
             String[] suitAndRank = cardName.split("_");
             Card card = new Card(Rank.valueOf(suitAndRank[1]), Suit.valueOf(suitAndRank[0]));
-            player.addHand(card);
+            gambler.addCardToHand(card);
         }
     }
 }

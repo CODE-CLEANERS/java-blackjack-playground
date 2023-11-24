@@ -1,4 +1,4 @@
-package blackjack;
+package blackjack.player;
 
 public class Dealer extends Player {
 
@@ -8,7 +8,7 @@ public class Dealer extends Player {
     }
 
     public boolean isPlay() {
-        int result = calculateHands();
+        int result = this.hands.calculateHand();
         return result <= 16;
     }
 

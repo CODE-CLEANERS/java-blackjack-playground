@@ -1,8 +1,9 @@
 package view;
 
-import blackjack.Dealer;
-import blackjack.Player;
-import blackjack.card.Card;
+import blackjack.card.Hand;
+import blackjack.player.Dealer;
+import blackjack.player.Gambler;
+import blackjack.player.Player;
 
 import java.util.List;
 
@@ -18,36 +19,36 @@ public class GameOutputView {
     private final static String ANNOUNCEMENT_RESULT = "## 최종 수익";
     private final static String NAME_AND_BAT_AMOUNT_PAIR_FORMAT = "%s: %.0f";
 
-    public static void announceDealResult(List<Player> players) {
+    public static void announceDealResult(List<Gambler> gamblers) {
         Terminal.emptyln();
         StringBuilder sb = new StringBuilder();
         sb.append(DEAL_CARD_ANTECEDENT);
-        for (int i = 0; i < players.size(); i++) {
+        for (int i = 0; i < gamblers.size(); i++) {
             if (i != 0) {
                 sb.append(COMMA);
             }
 
-            sb.append(players.get(i).getName());
+            sb.append(gamblers.get(i).getName());
         }
 
         sb.append(DEAL_CARD_SUBSEQUENT);
         Terminal.outln(sb.toString());
     }
 
-    public static void showHand(Player player) {
+    public static void showHand(Player gambler) {
         StringBuilder sb = new StringBuilder();
-        sb.append(String.format(SHOW_CARD_ANTECEDENT_FORMAT, player.getName()));
+        sb.append(String.format(SHOW_CARD_ANTECEDENT_FORMAT, gambler.getName()));
 
-        List<Card> hands = player.getHands();
-        for (int i = 0; i < hands.size(); i++) {
+        Hand hand = gambler.getHand();
+        for (int i = 0; i < hand.size(); i++) {
             if (i != 0) {
                 sb.append(COMMA);
             }
 
-            sb.append(hands.get(i).getCardName());
+            sb.append(hand.get(i).getCardName());
         }
 
-        sb.append(String.format(SHOW_CARD_SUBSEQUENT_FORMAT, player.calculateHands()));
+        sb.append(String.format(SHOW_CARD_SUBSEQUENT_FORMAT, hand.calculateHand()));
         Terminal.outln(sb.toString());
     }
 
@@ -57,12 +58,12 @@ public class GameOutputView {
         Terminal.emptyln();
     }
 
-    public static void announceFinalProfit(Dealer dealer, List<Player> players) {
+    public static void announceFinalProfit(Dealer dealer, List<Gambler> gamblers) {
         Terminal.emptyln();
         Terminal.outln(ANNOUNCEMENT_RESULT);
         Terminal.outln(String.format(NAME_AND_BAT_AMOUNT_PAIR_FORMAT, dealer.getName(), dealer.getChip()));
-        for (Player player : players) {
-            Terminal.outln(String.format(NAME_AND_BAT_AMOUNT_PAIR_FORMAT, player.getName(), player.getChip()));
+        for (Gambler gambler : gamblers) {
+            Terminal.outln(String.format(NAME_AND_BAT_AMOUNT_PAIR_FORMAT, gambler.getName(), gambler.getChip()));
         }
     }
 }
